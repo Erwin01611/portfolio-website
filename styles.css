@@ -8,20 +8,33 @@
 }
 
 :root {
-    /* Color Palette */
-    --primary-dark: #1a1f36;
-    --secondary-dark: #2a3f5f;
-    --accent-blue: #4a90e2;
-    --accent-green: #50c878;
-    --text-light: #e4e4e7;
-    --text-gray: #a1a1aa;
-    --card-bg: rgba(42, 63, 95, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --shadow: rgba(0, 0, 0, 0.3);
+    /* Refined Color Palette - Inspired by GitHub Dark + Apple Design Language */
+    --primary-dark: #0d1117;
+    --secondary-dark: #161b22;
+    --tertiary-dark: #21262d;
+
+    /* Accent Colors - Refined Blue System */
+    --accent-primary: #58a6ff;      /* Main brand color */
+    --accent-secondary: #79c0ff;    /* Lighter blue for highlights */
+    --accent-tertiary: #1f6feb;     /* Darker blue for depth */
+
+    /* Warm Accent - Use Sparingly */
+    --accent-warm: #ffa657;         /* For primary CTAs only */
+
+    /* Text Colors */
+    --text-primary: #f0f6fc;        /* Crisp white */
+    --text-secondary: #8b949e;      /* Muted gray */
+    --text-tertiary: #6e7681;       /* Darker gray */
+
+    /* UI Elements */
+    --card-bg: rgba(22, 27, 34, 0.6);
+    --glass-border: rgba(240, 246, 252, 0.1);
+    --shadow: rgba(1, 4, 9, 0.5);
+    --shadow-elevated: rgba(1, 4, 9, 0.7);
 
     /* Typography */
-    --font-body: 'Inter', sans-serif;
-    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
 
     /* Spacing */
     --section-padding: 100px 0;
@@ -40,7 +53,7 @@ html {
 body {
     font-family: var(--font-body);
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
-    color: var(--text-light);
+    color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -65,10 +78,8 @@ body {
     font-weight: 700;
     text-align: center;
     margin-bottom: 60px;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    /* Remove the gradient - use solid color for clarity */
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.8s ease forwards;
@@ -137,12 +148,8 @@ body {
     font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 800;
-    color: var(--text-light);
+    color: var(--accent-primary);       /* Single accent color */
     text-decoration: none;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     transition: var(--transition-smooth);
 }
 
@@ -240,13 +247,11 @@ body {
 
 .hero-name {
     font-family: var(--font-heading);
-    font-size: 5rem;
-    font-weight: 800;
+    font-size: 4rem;                    /* Reduced from 5rem */
+    font-weight: 600;                   /* Reduced from 800 */
+    letter-spacing: -0.02em;            /* Added for premium feel */
     margin-bottom: 20px;
-    background: linear-gradient(135deg, var(--text-light), var(--accent-blue));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);         /* Solid color instead of gradient */
     opacity: 0;
     animation: heroFadeIn 1.2s ease 0.3s forwards;
 }
@@ -390,15 +395,15 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+    background: var(--accent-primary);
     color: white;
     border: none;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(74, 144, 226, 0.4);
-    animation: pulseGlow 1.5s ease-in-out infinite;
+    background: var(--accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(88, 166, 255, 0.4);
 }
 
 @keyframes pulseGlow {
@@ -412,14 +417,14 @@ body {
 
 .btn-secondary {
     background: transparent;
-    color: var(--text-light);
-    border: 2px solid var(--accent-blue);
+    color: var(--text-primary);
+    border: 2px solid var(--accent-primary);
 }
 
 .btn-secondary:hover {
-    background: var(--accent-blue);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+    background: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(88, 166, 255, 0.3);
 }
 
 .scroll-indicator {
@@ -620,12 +625,12 @@ body {
 
 .skill-progress {
     height: 100%;
-    background: linear-gradient(90deg, #4a90e2, #6FD8D8);
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
     border-radius: 10px;
     width: 0;
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    box-shadow: 0 2px 8px rgba(111, 216, 216, 0.4);
+    box-shadow: 0 2px 8px rgba(88, 166, 255, 0.4);
 }
 
 .skill-item:hover .skill-progress {
@@ -872,7 +877,7 @@ body {
 .project-icon {
     width: 70px;
     height: 70px;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+    background: var(--accent-tertiary);  /* Solid color */
     border-radius: 15px;
     display: flex;
     align-items: center;
