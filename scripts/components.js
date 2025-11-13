@@ -270,12 +270,16 @@ export function renderContactSection() {
     const linkedinLinks = document.querySelectorAll('a[href*="linkedin"]');
     linkedinLinks.forEach(link => {
         link.href = contact.linkedin;
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
     });
 
     // Update GitHub
     const githubLinks = document.querySelectorAll('a[href*="github"]');
     githubLinks.forEach(link => {
         link.href = contact.github;
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
     });
 }
 
