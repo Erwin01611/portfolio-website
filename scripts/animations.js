@@ -10,7 +10,6 @@ export function initParticles() {
 
     const ctx = canvas.getContext('2d');
 
-    // Set canvas size
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -18,15 +17,14 @@ export function initParticles() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Particle class
     class Particle {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 3 + 1;
-            this.speedX = Math.random() * 0.5 - 0.25;
-            this.speedY = Math.random() * 0.5 - 0.25;
-            this.opacity = Math.random() * 0.5 + 0.2;
+            this.size = Math.random() * 2 + 0.5;      // Smaller particles (was 3 + 1)
+            this.speedX = Math.random() * 0.3 - 0.15;  // Slower movement (was 0.5 - 0.25)
+            this.speedY = Math.random() * 0.3 - 0.15;
+            this.opacity = Math.random() * 0.3 + 0.1;  // More subtle (was 0.5 + 0.2)
             this.parallaxX = 0;
             this.parallaxY = 0;
         }
@@ -35,7 +33,6 @@ export function initParticles() {
             this.x += this.speedX;
             this.y += this.speedY;
 
-            // Wrap around screen
             if (this.x > canvas.width) this.x = 0;
             if (this.x < 0) this.x = canvas.width;
             if (this.y > canvas.height) this.y = 0;
@@ -46,67 +43,54 @@ export function initParticles() {
             const drawX = this.x + (this.parallaxX || 0);
             const drawY = this.y + (this.parallaxY || 0);
 
-            ctx.fillStyle = `rgba(74, 144, 226, ${this.opacity})`;
+            ctx.fillStyle = `rgba(88, 166, 255, ${this.opacity})`;  // Use our accent color
             ctx.beginPath();
             ctx.arc(drawX, drawY, this.size, 0, Math.PI * 2);
             ctx.fill();
 
-            // Add glow effect
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = `rgba(74, 144, 226, ${this.opacity * 0.5})`;
+            // Reduced glow
+            ctx.shadowBlur = 5;                         // Was 10
+            ctx.shadowColor = `rgba(88, 166, 255, ${this.opacity * 0.3})`;  // Was 0.5
         }
     }
 
-    // Create particles
     const particles = [];
-    const particleCount = 100;
+    const particleCount = 60;                          // Reduced from 100
 
     for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
     }
 
-    // Mouse interaction with parallax
     let mouse = {
         x: null,
         y: null,
         radius: 150
     };
 
-    let scrollOffset = 0;
-
     canvas.addEventListener('mousemove', (e) => {
         mouse.x = e.x;
         mouse.y = e.y;
 
-        // Parallax effect for particles based on mouse position
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
         const deltaX = (e.x - centerX) / centerX;
         const deltaY = (e.y - centerY) / centerY;
 
         particles.forEach(particle => {
-            particle.parallaxX = deltaX * 20;
-            particle.parallaxY = deltaY * 20;
+            particle.parallaxX = deltaX * 15;           // Reduced from 20
+            particle.parallaxY = deltaY * 15;
         });
     });
 
     canvas.addEventListener('mouseleave', () => {
         mouse.x = null;
         mouse.y = null;
-
-        // Reset parallax
         particles.forEach(particle => {
             particle.parallaxX = 0;
             particle.parallaxY = 0;
         });
     });
 
-    // Scroll-based parallax
-    window.addEventListener('scroll', () => {
-        scrollOffset = window.pageYOffset * 0.5;
-    });
-
-    // Animation loop
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -114,7 +98,7 @@ export function initParticles() {
             particle.update();
             particle.draw();
 
-            // Mouse repulsion effect
+            // Mouse repulsion - but gentler
             if (mouse.x && mouse.y) {
                 const dx = mouse.x - particle.x;
                 const dy = mouse.y - particle.y;
@@ -124,29 +108,14 @@ export function initParticles() {
                     const force = (mouse.radius - distance) / mouse.radius;
                     const directionX = dx / distance;
                     const directionY = dy / distance;
-                    particle.x -= directionX * force * 3;
-                    particle.y -= directionY * force * 3;
+                    particle.x -= directionX * force * 2;  // Reduced from 3
+                    particle.y -= directionY * force * 2;
                 }
             }
         });
 
-        // Draw connections
-        particles.forEach((a, i) => {
-            particles.slice(i + 1).forEach(b => {
-                const dx = a.x - b.x;
-                const dy = a.y - b.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 100) {
-                    ctx.strokeStyle = `rgba(74, 144, 226, ${0.2 * (1 - distance / 100)})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(a.x, a.y);
-                    ctx.lineTo(b.x, b.y);
-                    ctx.stroke();
-                }
-            });
-        });
+        // REMOVED: Connection lines between particles
+        // (They felt dated - cleaner without them)
 
         requestAnimationFrame(animate);
     }

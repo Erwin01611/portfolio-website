@@ -259,12 +259,12 @@ body {
 }
 
 .hero-title {
-    font-size: 1.3rem;                  /* Slightly smaller */
-    font-weight: 400;                   /* Regular weight */
+    font-size: 1.3rem;
+    font-weight: 400;
     color: var(--text-secondary);
     line-height: 1.6;
     letter-spacing: 0.01em;
-    margin-bottom: 30px;
+    margin-bottom: 40px;                /* Increased from 30px */
     opacity: 0;
     animation: heroFadeIn 1.2s ease 0.6s forwards;
 }
@@ -283,9 +283,9 @@ body {
 }
 
 .rotating-text {
-    font-size: 1.1rem;                  /* Slightly smaller */
+    font-size: 1.1rem;
     font-weight: 400;
-    margin-bottom: 50px;
+    margin-bottom: 60px;                /* Increased from 50px */
     height: 60px;
     display: flex;
     align-items: center;
@@ -302,8 +302,9 @@ body {
 .rotating-words {
     position: relative;
     height: 40px;
-    width: 200px;                       /* Add explicit width */
-    overflow: hidden;
+    min-width: 280px;              /* Changed to min-width for flexibility */
+    display: inline-block;
+    overflow: visible;             /* Changed from hidden to see debug */
 }
 
 .rotating-words::after {
@@ -327,12 +328,17 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;                        /* Ensure full width */
+    width: 100%;
     opacity: 0;
     color: var(--accent-primary);
-    font-weight: 500;                   /* Medium weight */
-    white-space: nowrap;                /* Prevent wrapping */
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: left;
     animation: rotateWord 8s infinite;
+}
+
+.rotating-words .word.active {
+    opacity: 1;                    /* Ensure active word is visible */
 }
 
 .rotating-words .word:nth-child(1) {
