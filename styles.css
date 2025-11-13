@@ -117,10 +117,10 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(26, 31, 54, 0.7);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border-bottom: 1px solid var(--glass-border);
+    background: rgba(13, 17, 23, 0.7);   /* More transparent initially */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(240, 246, 252, 0.05);
     padding: 20px 0;
     z-index: 1000;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -128,11 +128,11 @@ body {
 
 .navbar.scrolled {
     padding: 15px 0;
-    background: rgba(26, 31, 54, 0.95);
+    background: rgba(13, 17, 23, 0.95);   /* More opaque when scrolled */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+    box-shadow: 0 4px 30px rgba(1, 4, 9, 0.7);
+    border-bottom: 1px solid rgba(88, 166, 255, 0.15);  /* Subtle accent border */
 }
 
 .nav-container {
@@ -507,16 +507,31 @@ body {
 }
 
 .about-text .lead {
-    font-size: 1.2rem;                  /* Slightly smaller */
-    font-weight: 500;                   /* Medium instead of semi-bold */
-    color: var(--text-primary);         /* Brighter for emphasis */
+    font-size: 1.25rem;
+    font-weight: 600;                    /* Slightly bolder for emphasis */
+    color: var(--text-primary);
     line-height: 1.7;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+
+    /* Add subtle highlight effect */
+    position: relative;
+    padding-left: 20px;
 }
 
-.about-text p {
-    color: var(--text-secondary);
-    line-height: 1.8;                   /* Better readability */
+.about-text .lead::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 2px;
+}
+
+.about-text p:not(.lead) {
+    color: var(--text-tertiary);         /* Darker gray for contrast */
+    line-height: 1.9;
     font-size: 1rem;
 }
 
@@ -534,6 +549,24 @@ body {
     padding: 30px;
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle gradient background on hover */
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+        rgba(88, 166, 255, 0.05),
+        rgba(121, 192, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.achievement-card:hover::before {
+    opacity: 1;
 }
 
 .achievement-card:nth-child(1) {
@@ -550,31 +583,40 @@ body {
 
 .achievement-icon {
     font-size: 3rem;
-    color: var(--accent-green);
+    color: var(--accent-primary);        /* Use accent color */
     min-width: 60px;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.achievement-card:hover .achievement-icon {
+    transform: scale(1.1);
+}
+
+.achievement-content {
+    position: relative;
+    z-index: 1;
 }
 
 .achievement-number {
     font-family: var(--font-heading);
-    font-size: 2.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 3rem;                     /* Larger for impact */
+    font-weight: 700;                    /* Bolder */
+    color: var(--text-primary);          /* Solid color, not gradient */
     margin-bottom: 5px;
 }
 
 .achievement-label {
-    font-size: 1rem;
+    font-size: 1.1rem;                   /* Slightly larger */
     font-weight: 600;
-    color: var(--text-light);
+    color: var(--accent-secondary);      /* Use accent for emphasis */
     margin-bottom: 5px;
 }
 
 .achievement-desc {
     font-size: 0.9rem;
-    color: var(--text-gray);
+    color: var(--text-secondary);
 }
 
 /* =================================
@@ -588,10 +630,17 @@ body {
 
 .skill-category {
     padding: 35px;
-    background: rgba(42, 63, 95, 0.5);
+    background: rgba(22, 27, 34, 0.6);   /* Slightly more opaque */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(240, 246, 252, 0.08);  /* Subtler border */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-category:hover {
+    background: rgba(22, 27, 34, 0.75);   /* Slightly lighter on hover */
+    border-color: rgba(88, 166, 255, 0.2);
+    transform: translateY(-4px);
 }
 
 .category-header {
@@ -603,7 +652,13 @@ body {
 
 .category-header i {
     font-size: 2rem;
-    color: var(--accent-blue);
+    color: var(--accent-primary);
+    transition: all 0.3s ease;
+}
+
+.skill-category:hover .category-header i {
+    color: var(--accent-secondary);
+    transform: scale(1.05);
 }
 
 .category-header h3 {
