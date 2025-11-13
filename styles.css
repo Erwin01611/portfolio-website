@@ -74,12 +74,12 @@ body {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 3rem;
-    font-weight: 700;
+    font-size: 2.5rem;                  /* Reduced from 3rem */
+    font-weight: 600;                   /* Reduced from 700 */
+    letter-spacing: -0.01em;
     text-align: center;
     margin-bottom: 60px;
     color: var(--text-primary);
-    /* Remove the gradient - use solid color for clarity */
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.8s ease forwards;
@@ -164,10 +164,11 @@ body {
 }
 
 .nav-link {
-    color: var(--text-light);
+    color: var(--text-primary);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.875rem;                /* Smaller - 14px */
+    letter-spacing: 0.03em;             /* More spacing for elegance */
     position: relative;
     transition: all 0.3s ease;
     padding-bottom: 5px;
@@ -181,14 +182,14 @@ body {
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+    background: var(--accent-primary);  /* Use accent color */
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 2px;
 }
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--accent-blue);
+    color: var(--accent-secondary);     /* Use lighter accent */
 }
 
 .nav-link:hover::after,
@@ -247,18 +248,22 @@ body {
 
 .hero-name {
     font-family: var(--font-heading);
-    font-size: 4rem;                    /* Reduced from 5rem */
-    font-weight: 600;                   /* Reduced from 800 */
-    letter-spacing: -0.02em;            /* Added for premium feel */
+    font-size: 4rem;
+    font-weight: 600;                   /* Keep this lighter weight */
+    letter-spacing: -0.02em;
+    line-height: 1.1;
     margin-bottom: 20px;
-    color: var(--text-primary);         /* Solid color instead of gradient */
+    color: var(--text-primary);
     opacity: 0;
     animation: heroFadeIn 1.2s ease 0.3s forwards;
 }
 
 .hero-title {
-    font-size: 1.5rem;
-    color: var(--text-gray);
+    font-size: 1.3rem;                  /* Slightly smaller */
+    font-weight: 400;                   /* Regular weight */
+    color: var(--text-secondary);
+    line-height: 1.6;
+    letter-spacing: 0.01em;
     margin-bottom: 30px;
     opacity: 0;
     animation: heroFadeIn 1.2s ease 0.6s forwards;
@@ -278,7 +283,8 @@ body {
 }
 
 .rotating-text {
-    font-size: 1.3rem;
+    font-size: 1.1rem;                  /* Slightly smaller */
+    font-weight: 400;
     margin-bottom: 50px;
     height: 60px;
     display: flex;
@@ -289,12 +295,14 @@ body {
 }
 
 .rotating-label {
-    color: var(--text-gray);
+    color: var(--text-secondary);
+    font-weight: 400;
 }
 
 .rotating-words {
     position: relative;
     height: 40px;
+    width: 200px;                       /* Add explicit width */
     overflow: hidden;
 }
 
@@ -319,9 +327,11 @@ body {
     position: absolute;
     left: 0;
     top: 0;
+    width: 100%;                        /* Ensure full width */
     opacity: 0;
-    color: var(--accent-blue);
-    font-weight: 600;
+    color: var(--accent-primary);
+    font-weight: 500;                   /* Medium weight */
+    white-space: nowrap;                /* Prevent wrapping */
     animation: rotateWord 8s infinite;
 }
 
@@ -491,10 +501,17 @@ body {
 }
 
 .about-text .lead {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--accent-blue);
+    font-size: 1.2rem;                  /* Slightly smaller */
+    font-weight: 500;                   /* Medium instead of semi-bold */
+    color: var(--text-primary);         /* Brighter for emphasis */
+    line-height: 1.7;
     margin-bottom: 20px;
+}
+
+.about-text p {
+    color: var(--text-secondary);
+    line-height: 1.8;                   /* Better readability */
+    font-size: 1rem;
 }
 
 .achievements {
