@@ -45,7 +45,7 @@ export const personalInfo = {
     contact: {
         email: "farruxmirzaev@outlook.com",
         location: "Frankfurt (Oder), Germany",
-        linkedin: "https://linkedin.com/in/farrukh-mirzaev/",
+        linkedin: "https://www.linkedin.com/in/farrukhmirzaev/",
         github: "https://github.com/Erwin01611"
     },
 
