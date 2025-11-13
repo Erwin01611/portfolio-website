@@ -45,7 +45,7 @@ export const skillCategories = [
             { name: "SQL", level: 90 },
             { name: "FastAPI", level: 82 },
             { name: "Django", level: 78 },
-            { name: "Git", level: 88 }
+            { name: "Flask", level: 80 }
         ]
     },
     {

@@ -7,16 +7,16 @@ export const personalInfo = {
 
     // Rotating expertise text in hero section
     expertise: [
-        "Python Developer",
-        "ML Engineer",
+        "Quantitative Analyst",
+        "Process Automation Specialist",
         "Data Pipeline Architect",
-        "Business Intelligence"
+        "ML Engineer"
     ],
 
     // About section
     about: {
-        lead: "Quantitative analyst transitioning to data science with production experience in automated data pipelines and predictive modeling. I specialize in transforming complex business challenges into scalable, data-driven solutions that deliver measurable impact.",
-        description: "With a strong foundation in statistical analysis and machine learning, combined with hands-on experience in process automation, I bridge the gap between technical innovation and business value. My work focuses on building robust data pipelines, implementing predictive models, and creating automated workflows that reduce manual effort while improving accuracy."
+        lead: "Quantitative analyst transitioning to data science with production experience in automated data pipelines and predictive modeling. Combines finance/quantitative methods background with hands-on Python expertise in process automation, time series forecasting, and statistical analysis.",
+        description: "Proven ability to build end-to-end analytical solutions from data processing to deployment, eliminating 14+ hours of monthly manual work and reducing errors by 90%+. Currently pursuing M.Sc. in International Business Administration (Data Science & Decision Support major). Strong foundation in statistical modeling, machine learning, and business value delivery through systematic problem-solving and technical innovation."
     },
 
     // Achievement metrics
@@ -51,9 +51,10 @@ export const personalInfo = {
 
     // Languages
     languages: [
-        { name: "German", level: "B2 - Upper Intermediate" },
-        { name: "English", level: "C1 - Advanced" },
+        { name: "Uzbek", level: "Native Speaker" },
         { name: "Russian", level: "Bilingual Proficiency" },
-        { name: "Uzbek", level: "Native Speaker" }
+        { name: "English", level: "C1+ - Advanced" },
+        { name: "German", level: "B2 - Upper Intermediate" },
+        { name: "Spanish", level: "A1 - Beginner" }
     ]
 };
