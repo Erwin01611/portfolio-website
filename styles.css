@@ -1069,16 +1069,19 @@ body {
     color: var(--accent-blue);
 }
 
-.languages-card {
-    padding: 35px;
+/* =================================
+   LANGUAGES SECTION
+   ================================= */
+.languages.section {
+    background: linear-gradient(135deg,
+        rgba(13, 71, 161, 0.03) 0%,
+        rgba(2, 136, 209, 0.03) 100%);
 }
 
-.languages-card h3 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-    text-align: center;
+.languages-card {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 35px;
 }
 
 .languages-grid {
