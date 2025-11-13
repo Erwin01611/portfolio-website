@@ -45,18 +45,19 @@ export const skillCategories = [
             { name: "SQL", level: 90 },
             { name: "FastAPI", level: 82 },
             { name: "Django", level: 78 },
-            { name: "Flask", level: 80 }
+            { name: "Flask", level: 80 },
+            { name: "Git/GitHub", level: 92 }
         ]
     },
     {
         id: 5,
         icon: "fa-database",
-        title: "Databases & Storage",
+        title: "Databases & Tools",
         skills: [
             { name: "PostgreSQL", level: 85 },
             { name: "MySQL", level: 80 },
-            { name: "MongoDB", level: 75 },
-            { name: "Redis", level: 70 }
+            { name: "Excel/Sheets Automation", level: 90 },  // From CV - macros, pivots
+            { name: "Workday", level: 85 }  // From CV - admin experience
         ]
     },
     {
@@ -66,8 +67,7 @@ export const skillCategories = [
         skills: [
             { name: "Docker", level: 85 },
             { name: "Git/GitHub", level: 92 },
-            { name: "AWS (S3, Lambda)", level: 75 },
-            { name: "CI/CD Pipelines", level: 78 }
+            { name: "AWS (S3, Lambda)", level: 75 }
         ]
     }
 ];
