@@ -2,13 +2,31 @@
    INITIALIZATION
    ================================= */
 document.addEventListener('DOMContentLoaded', function() {
+    initPageLoader();
     initNavigation();
     initParticles();
     initScrollAnimations();
     initSkillBars();
     initSmoothScroll();
     initNavbarScroll();
+    initMicroInteractions();
 });
+
+/* =================================
+   PAGE LOADER
+   ================================= */
+function initPageLoader() {
+    const loader = document.querySelector('.page-loader');
+
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }, 500);
+    });
+}
 
 /* =================================
    NAVIGATION MENU
@@ -78,6 +96,8 @@ function initParticles() {
             this.speedX = Math.random() * 0.5 - 0.25;
             this.speedY = Math.random() * 0.5 - 0.25;
             this.opacity = Math.random() * 0.5 + 0.2;
+            this.parallaxX = 0;
+            this.parallaxY = 0;
         }
 
         update() {
@@ -92,10 +112,17 @@ function initParticles() {
         }
 
         draw() {
+            const drawX = this.x + (this.parallaxX || 0);
+            const drawY = this.y + (this.parallaxY || 0);
+
             ctx.fillStyle = `rgba(74, 144, 226, ${this.opacity})`;
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.arc(drawX, drawY, this.size, 0, Math.PI * 2);
             ctx.fill();
+
+            // Add glow effect
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = `rgba(74, 144, 226, ${this.opacity * 0.5})`;
         }
     }
 
@@ -107,21 +134,45 @@ function initParticles() {
         particles.push(new Particle());
     }
 
-    // Mouse interaction
+    // Mouse interaction with parallax
     let mouse = {
         x: null,
         y: null,
         radius: 150
     };
 
+    let scrollOffset = 0;
+
     canvas.addEventListener('mousemove', (e) => {
         mouse.x = e.x;
         mouse.y = e.y;
+
+        // Parallax effect for particles based on mouse position
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const deltaX = (e.x - centerX) / centerX;
+        const deltaY = (e.y - centerY) / centerY;
+
+        particles.forEach(particle => {
+            particle.parallaxX = deltaX * 20;
+            particle.parallaxY = deltaY * 20;
+        });
     });
 
     canvas.addEventListener('mouseleave', () => {
         mouse.x = null;
         mouse.y = null;
+
+        // Reset parallax
+        particles.forEach(particle => {
+            particle.parallaxX = 0;
+            particle.parallaxY = 0;
+        });
+    });
+
+    // Scroll-based parallax
+    window.addEventListener('scroll', () => {
+        scrollOffset = window.pageYOffset * 0.5;
     });
 
     // Animation loop
@@ -610,6 +661,81 @@ window.addEventListener('error', (e) => {
     console.error('Error caught:', e.error);
     // Can be integrated with error tracking service
 });
+
+/* =================================
+   MICRO-INTERACTIONS
+   ================================= */
+function initMicroInteractions() {
+    // Button press effect
+    const buttons = document.querySelectorAll('.btn, .tech-tag, .tag');
+    buttons.forEach(btn => {
+        btn.addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.95)';
+        });
+
+        btn.addEventListener('mouseup', function() {
+            this.style.transform = '';
+        });
+
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+        });
+    });
+
+    // Smooth card entrance animations
+    const cards = document.querySelectorAll('.glass-card, .project-card, .education-card');
+    const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+                cardObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        cardObserver.observe(card);
+    });
+
+    // Icon hover animations
+    const icons = document.querySelectorAll('.category-header i, .project-icon, .achievement-icon');
+    icons.forEach(icon => {
+        icon.addEventListener('mouseenter', function() {
+            this.style.transform = 'rotate(360deg) scale(1.2)';
+            this.style.transition = 'transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        });
+
+        icon.addEventListener('mouseleave', function() {
+            this.style.transform = 'rotate(0deg) scale(1)';
+        });
+    });
+
+    // Add ripple effect to buttons
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+}
 
 /* =================================
    FINAL INITIALIZATION
